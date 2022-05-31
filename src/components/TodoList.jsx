@@ -62,10 +62,10 @@ function TodoList({
                 className="edit-button"
                 onClick={() => markAsEditing(todo.id)}
               >
-                <i class="bx bxs-edit"></i>
+                <i className="bx bxs-edit"></i>
               </button>
               <button className="x-button" onClick={() => deleteTodo(todo.id)}>
-                <i class="bx bxs-trash"></i>
+                <i className="bx bxs-trash"></i>
               </button>
             </li>
           );

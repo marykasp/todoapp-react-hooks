@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import NoTodos from "./components/NoTodos";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
+import NameInput from "./components/NameInput";
 import "./App.css";
 
 function App() {
   // set state - array destructing
+  const nameInputEl = useRef(null);
   const [todos, setTodos] = useState([]);
-  const [idForTodo, setIdForTodo] = useState(4);
+  const [idForTodo, setIdForTodo] = useState(1);
 
   // Event Handler Functions
   function addTodo(todo) {
@@ -120,9 +122,20 @@ function App() {
     return todos;
   }
 
+  // listens for component mounting, or state change and will execute the callback function
+  useEffect(() => {
+    // will focus the input when the component mounts
+    nameInputEl.current.focus();
+
+    return function cleanup() {
+      // console.log("cleaning up");
+    };
+  }, []);
+
   return (
     <div className="todo-app-container">
       <div className="todo-app">
+        <NameInput nameInputEl={nameInputEl} />
         <h2>Todo App</h2>
         <TodoForm addTodo={addTodo} />
 

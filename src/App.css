@@ -10,6 +10,30 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
+input {
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+}
+
+input:focus {
+  outline: none !important;
+  border:1px solid #895cf3;
+  /* box-shadow: 0 0 10px #719ECE; */
+}
+
+h2 {
+  font-size: 35px;
+  font-weight: bold;
+  color: #895cf3;
+}
+
+h4 {
+  font-size: 20px;
+  color: #170444;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
 .todo-app-container {
   min-height: 100vh;
   padding: 10px;
@@ -37,22 +61,56 @@ body {
   color: #374151;
 }
 
-h2 {
-  font-size: 40px;
-  font-weight: bold;
+.name-container {
+  margin-bottom: 20px;
+  position: relative;
+  /* display: flex;
+  align-items: center;
+  justify-content: space-between; */
+}
+
+.todo-input-name {
+  flex: 0 0 50%;
+  padding: 10px 15px;
+  background: lightgray;
+  border: none;
+  border-radius: 3px;
   color: #895cf3;
+  font-size: 14px;
+}
+
+
+.name-container .bx {
+  background-color: #895cf3;
+  padding: 10px;
+  border-radius: 50%;
+  font-size: 40px;
+  color: #fff;
+  position: absolute;
+  top: 0;
+  right: -10px;
+}
+
+.name-label {
+  margin-top: 10px;
+  font-size: 18px
+}
+
+.name-label span {
+  color: #895cf3;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
 .todo-input {
   margin-top: 10px;
   padding: 10px 15px;
   width: 100%;
-  border: 1px solid #bbc0c5;
+  border: 1px solid #ccd0d3;
   border-radius: 5px;
   color: #170444;
   outline-color: #895cf3;
   background: transparent;
-  font-family: "Poppins", sans-serif;
   font-size: 16px;
 }
 
