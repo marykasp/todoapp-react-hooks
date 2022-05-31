@@ -2,7 +2,7 @@ import React from "react";
 
 function TodoClearCompleted({ clearCompleted }) {
   return (
-    <button onClick={clearCompleted} className="button">
+    <button onClick={clearCompleted} className="button clear-btn">
       Clear completed
     </button>
   );
