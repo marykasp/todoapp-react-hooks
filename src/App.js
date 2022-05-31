@@ -1,6 +1,26 @@
+import { useState } from "react";
 import "./App.css";
 
 function App() {
+  // set state - array destructing
+  const [todos, setTodos] = useState([
+    {
+      id: 1,
+      title: "Finish React Series",
+      isComplete: false,
+    },
+    {
+      id: 1,
+      title: "FFXIV MSQ",
+      isComplete: false,
+    },
+    {
+      id: 1,
+      title: "Skillcrush Lesson 8",
+      isComplete: false,
+    },
+  ]);
+
   return (
     <div className="todo-app-container">
       <div className="todo-app">
@@ -14,48 +34,32 @@ function App() {
         </form>
 
         <ul className="todo-list">
-          <li className="todo-item-container">
-            <div className="todo-item">
-              <input type="checkbox" />
-              <span className="todo-item-label">Finish React Series</span>
-            </div>
-            <button className="x-button">
-              <svg
-                className="x-button-icon"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          </li>
-          <li className="todo-item-container">
-            <div className="todo-item">
-              <input type="checkbox" />
-              <span className="todo-item-label">Play FFXIV</span>
-            </div>
-            <button className="x-button">
-              <svg
-                className="x-button-icon"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          </li>
+          {/* iterate over the todo state */}
+          {todos.map((todo, index) => {
+            return (
+              <li className="todo-item-container">
+                <div className="todo-item">
+                  <input type="checkbox" />
+                  <span className="todo-item-label">{todo.title}</span>
+                </div>
+                <button className="x-button">
+                  <svg
+                    className="x-button-icon"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </li>
+            );
+          })}
         </ul>
 
         <div className="check-all-container">
