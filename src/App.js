@@ -1,57 +1,28 @@
 import { useState } from "react";
+import NoTodos from "./components/NoTodos";
+import TodoForm from "./components/TodoForm";
+import TodoList from "./components/TodoList";
 import "./App.css";
 
 function App() {
   // set state - array destructing
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      title: "Finish React Series",
-      isComplete: false,
-      isEditing: false,
-    },
-    {
-      id: 2,
-      title: "FFXIV MSQ",
-      isComplete: true,
-      isEditing: false,
-    },
-    {
-      id: 3,
-      title: "Skillcrush Lesson 8",
-      isComplete: false,
-      isEditing: false,
-    },
-  ]);
-  const [todoInput, setTodoInput] = useState("");
+  const [todos, setTodos] = useState([]);
   const [idForTodo, setIdForTodo] = useState(4);
 
   // Event Handler Functions
-  function addTodo(event) {
-    event.preventDefault();
-    // check if input is empty
-    if (todoInput.trim().length === 0) {
-      return;
-    }
+  function addTodo(todo) {
     // grab what user enters by getting the todoInput
     // update todos array
     setTodos([
       ...todos,
       {
         id: idForTodo,
-        title: todoInput,
+        title: todo,
         isComplete: false,
       },
     ]);
-
-    setTodoInput("");
     // need to use a callback if updating a previous state
     setIdForTodo((prevIdForTodo) => prevIdForTodo + 1);
-  }
-
-  function handleInput(event) {
-    // update the todoInput state with what user types in
-    setTodoInput(event.target.value);
   }
 
   function deleteTodo(id) {
@@ -122,98 +93,21 @@ function App() {
     <div className="todo-app-container">
       <div className="todo-app">
         <h2>Todo App</h2>
-        <form action="#" onSubmit={addTodo}>
-          <input
-            type="text"
-            className="todo-input"
-            placeholder="What do you need to do?"
-            value={todoInput}
-            onChange={handleInput}
+        <TodoForm addTodo={addTodo} />
+
+        {/* show the todolist or notodos if there are no todos in the todos array */}
+        {todos.length > 0 ? (
+          <TodoList
+            todos={todos}
+            completeTodo={completeTodo}
+            markAsEditing={markAsEditing}
+            updateTodo={updateTodo}
+            cancelEdit={cancelEdit}
+            deleteTodo={deleteTodo}
           />
-        </form>
-
-        <ul className="todo-list">
-          {/* iterate over the todo state */}
-          {todos.map((todo, index) => {
-            return (
-              <li className="todo-item-container" key={todo.id}>
-                <div className="todo-item">
-                  <input
-                    type="checkbox"
-                    onChange={() => completeTodo(todo.id)}
-                    checked={todo.isComplete}
-                  />
-                  {/* conditional rendering of elements using ternary operator */}
-                  {!todo.isEditing ? (
-                    <span
-                      onDoubleClick={() => markAsEditing(todo.id)}
-                      className={`todo-item-label ${
-                        todo.isComplete ? "line-through" : ""
-                      }`}
-                    >
-                      {todo.title}
-                    </span>
-                  ) : (
-                    <input
-                      type="text"
-                      className="todo-item-input"
-                      defaultValue={todo.title}
-                      autoFocus
-                      onBlur={(e) => updateTodo(e, todo.id)}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                          updateTodo(e, todo.id);
-                        } else if (e.key === "Escape") {
-                          cancelEdit(todo.id);
-                        }
-                      }}
-                    />
-                  )}
-                </div>
-                <button
-                  className="x-button"
-                  onClick={() => deleteTodo(todo.id)}
-                >
-                  <svg
-                    className="x-button-icon"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                </button>
-              </li>
-            );
-          })}
-        </ul>
-
-        <div className="check-all-container">
-          <div>
-            <div className="button">Check All</div>
-          </div>
-
-          <span>3 items remaining</span>
-        </div>
-
-        <div className="other-buttons-container">
-          <div>
-            <button className="button filter-button filter-button-active">
-              All
-            </button>
-            <button className="button filter-button">Active</button>
-            <button className="button filter-button">Completed</button>
-          </div>
-
-          <div>
-            <button className="button">Clear completed</button>
-          </div>
-        </div>
+        ) : (
+          <NoTodos />
+        )}
       </div>
     </div>
   );

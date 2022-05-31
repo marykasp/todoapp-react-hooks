@@ -16,6 +16,16 @@ body {
   background: #895cf3;
 }
 
+.no-todos-container {
+  width: 300px;
+  margin: 30px auto;
+}
+
+.no-todos-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
 .todo-app {
   margin: auto;
   margin-top: 30px;
@@ -86,23 +96,36 @@ h2 {
 
 .line-through {
   text-decoration: line-through;
+  text-decoration-color:#170444;
 }
 
-.x-button {
+.x-button, .edit-button {
   background: white;
   color: #6B7280;
   border: none;
   cursor: pointer;
 }
 
-.x-button:hover {
+button .bx {
+  font-size: 1.4rem
+}
+
+.edit-button .bx {
+  color:rgb(243, 92, 225)
+}
+
+.edit-button:hover .bx {
+  color:rgb(204, 60, 187);
+}
+
+.x-button .bx {
+  color: #895cf3;
+}
+
+.x-button:hover .bx{
   color: #170444;
 }
 
-.x-button-icon {
-  width: 1.5rem;
-  height: 1.5rem;
-}
 
 .button {
   color: #6B7280;
