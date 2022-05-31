@@ -8,16 +8,19 @@ function App() {
       id: 1,
       title: "Finish React Series",
       isComplete: false,
+      isEditing: false,
     },
     {
       id: 2,
       title: "FFXIV MSQ",
-      isComplete: false,
+      isComplete: true,
+      isEditing: false,
     },
     {
       id: 3,
       title: "Skillcrush Lesson 8",
       isComplete: false,
+      isEditing: false,
     },
   ]);
   const [todoInput, setTodoInput] = useState("");
@@ -58,6 +61,63 @@ function App() {
     setTodos(todos.filter((todo) => todo.id !== id));
   }
 
+  function completeTodo(id) {
+    // iterate over the todos and change the isComplete property for todo clicked on
+    const updatedTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        todo.isComplete = !todo.isComplete;
+      }
+
+      return todo;
+    });
+
+    setTodos(updatedTodos);
+  }
+
+  function markAsEditing(id) {
+    const updatedTodos = todos.map((todo) => {
+      // change the isEditing property of todo clicked on
+      if (todo.id === id) {
+        todo.isEditing = true;
+      }
+
+      return todo;
+    });
+
+    setTodos(updatedTodos);
+  }
+
+  function updateTodo(e, id) {
+    console.log(e.target.value);
+    // update the todo from the value in the input field - iterate over the todos and change the title and isEditing property of the todo being edited
+    const updatedTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        // check if input value is empty string
+        if (e.target.value.trim().length === 0) {
+          todo.isEditing = false;
+          return todo;
+        }
+        todo.title = e.target.value;
+        // change isEditing to false to display the span again
+        todo.isEditing = false;
+      }
+      return todo;
+    });
+
+    setTodos(updatedTodos);
+  }
+
+  function cancelEdit(id) {
+    const updatedTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        todo.isEditing = false;
+      }
+      return todo;
+    });
+
+    setTodos(updatedTodos);
+  }
+
   return (
     <div className="todo-app-container">
       <div className="todo-app">
@@ -78,8 +138,37 @@ function App() {
             return (
               <li className="todo-item-container" key={todo.id}>
                 <div className="todo-item">
-                  <input type="checkbox" />
-                  <span className="todo-item-label">{todo.title}</span>
+                  <input
+                    type="checkbox"
+                    onChange={() => completeTodo(todo.id)}
+                    checked={todo.isComplete}
+                  />
+                  {/* conditional rendering of elements using ternary operator */}
+                  {!todo.isEditing ? (
+                    <span
+                      onDoubleClick={() => markAsEditing(todo.id)}
+                      className={`todo-item-label ${
+                        todo.isComplete ? "line-through" : ""
+                      }`}
+                    >
+                      {todo.title}
+                    </span>
+                  ) : (
+                    <input
+                      type="text"
+                      className="todo-item-input"
+                      defaultValue={todo.title}
+                      autoFocus
+                      onBlur={(e) => updateTodo(e, todo.id)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          updateTodo(e, todo.id);
+                        } else if (e.key === "Escape") {
+                          cancelEdit(todo.id);
+                        }
+                      }}
+                    />
+                  )}
                 </div>
                 <button
                   className="x-button"
