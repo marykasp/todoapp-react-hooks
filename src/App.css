@@ -38,12 +38,12 @@ h2 {
 .todo-input {
   width: 100%;
   border: none;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   padding: 14px;
   font-size: 16px;
   margin-top: 16px;
-  background: white;
-  outline: none;
+  background: transparent;
+  color: #374151;
 }
 
 .todo-list {
