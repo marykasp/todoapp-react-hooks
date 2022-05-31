@@ -89,6 +89,37 @@ function App() {
     setTodos(updatedTodos);
   }
 
+  function remaining() {
+    // filter the todos that are not complete -isComplete is false, get the length of that new list to display
+    return todos.filter((todo) => !todo.isComplete).length;
+  }
+
+  function clearCompleted() {
+    // filter todos that are not complete, keep them in todos array
+    setTodos([...todos].filter((todo) => !todo.isComplete));
+  }
+
+  function completeAllTodos() {
+    const updatedTodos = todos.map((todo) => {
+      todo.isComplete = true;
+      return todo;
+    });
+
+    setTodos(updatedTodos);
+  }
+
+  function todosFiltered(filter) {
+    if (filter === "active") {
+      // returns a new array of todos not yet done
+      return todos.filter((todo) => !todo.isComplete);
+    } else if (filter === "completed") {
+      // returns a new array of todos completed
+      return todos.filter((todo) => todo.isComplete);
+    }
+
+    return todos;
+  }
+
   return (
     <div className="todo-app-container">
       <div className="todo-app">
@@ -104,6 +135,10 @@ function App() {
             updateTodo={updateTodo}
             cancelEdit={cancelEdit}
             deleteTodo={deleteTodo}
+            remaining={remaining}
+            clearCompleted={clearCompleted}
+            completeAllTodos={completeAllTodos}
+            todosFiltered={todosFiltered}
           />
         ) : (
           <NoTodos />

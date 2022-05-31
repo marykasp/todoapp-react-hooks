@@ -6,8 +6,8 @@ function NoTodos() {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 64 64"
-        width="128px"
-        height="128px"
+        width="180px"
+        height="180px"
       >
         <linearGradient
           id="j60VCtKB9ZT9t2svrZTTfa"
@@ -17,7 +17,7 @@ function NoTodos() {
           y2="23"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0" stop-color="#6dc7ff" />
+          <stop offset="0" stop-color="#895cf3" />
           <stop offset="1" stop-color="#e6abff" />
         </linearGradient>
         <circle cx="19" cy="19" r="4" fill="url(#j60VCtKB9ZT9t2svrZTTfa)" />
@@ -29,7 +29,7 @@ function NoTodos() {
           y2="36"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0" stop-color="#6dc7ff" />
+          <stop offset="0" stop-color="#895cf3" />
           <stop offset="1" stop-color="#e6abff" />
         </linearGradient>
         <circle cx="19" cy="32" r="4" fill="url(#j60VCtKB9ZT9t2svrZTTfb)" />
@@ -41,7 +41,7 @@ function NoTodos() {
           y2="49"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0" stop-color="#6dc7ff" />
+          <stop offset="0" stop-color="#895cf3" />
           <stop offset="1" stop-color="#e6abff" />
         </linearGradient>
         <circle cx="19" cy="45" r="4" fill="url(#j60VCtKB9ZT9t2svrZTTfc)" />

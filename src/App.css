@@ -128,13 +128,19 @@ button .bx {
 
 
 .button {
-  color: #6B7280;
+  color: #895cf3;
   font-size: 14px;
   background: white;
   border: 1px solid lightgray;
   padding: 6px;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.button.check-all {
+  background-color: #895cf3;
+  color: #fff;
+  border: 1px solid #170444;
 }
 
 .button:hover {
