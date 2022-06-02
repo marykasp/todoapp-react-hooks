@@ -78,20 +78,21 @@ h4 {
   INPUT NAME
 ========================*/
 .name-container {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   position: relative;
 }
 
 .todo-input-name {
-  flex: 0 0 50%;
-  padding: 10px 15px 5px;
+  flex: 0 0 40%;
+  padding: 5px 15px 5px;
   background: transparent;
   border-bottom: 2px solid var(--primary-color);
   border-top: none;
   border-right: none;
   border-left: none;
   color: var(--primary-color);
-  font-size: 14px;
+  font-size: 15px;
+  font-weight: 400;
 }
 
 .name-container .bx {
@@ -106,8 +107,9 @@ h4 {
 }
 
 .name-label {
-  margin-top: 10px;
-  font-size: 18px
+  margin-bottom: 5px;
+  font-size: 24px;
+  font-weight: 400;
 }
 
 .name-label span {

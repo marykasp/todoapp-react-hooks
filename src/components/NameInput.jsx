@@ -20,23 +20,21 @@ function NameInput({ nameInputEl }) {
 
   return (
     <div className="name-container">
-      <h4>What is your name?</h4>
-
       <form action="#" onSubmit={handleSubmit}>
+        {name && (
+          <h3 className="name-label">
+            Hello, <span>{name}</span>
+          </h3>
+        )}
         <input
           type="text"
           ref={nameInputEl}
           className="todo-input-name"
-          placeholder="Enter your name.."
+          placeholder="What is your name?"
           value={name}
           onChange={(event) => setName(event.target.value)}
         />
       </form>
-      {name && (
-        <p className="name-label">
-          Hello, <span>{name}</span>
-        </p>
-      )}
 
       <i className="bx bx-list-ul"></i>
     </div>

@@ -11,7 +11,9 @@ function App() {
   const [todos, setTodos] = useState(
     JSON.parse(localStorage.getItem("todos")) || []
   );
-  const [idForTodo, setIdForTodo] = useState(1);
+  const [idForTodo, setIdForTodo] = useState(
+    JSON.parse(localStorage.getItem("idForTodo")) || 1
+  );
 
   // Event Handler Functions
   function addTodo(todo) {
@@ -139,7 +141,8 @@ function App() {
   useEffect(() => {
     // setItems in local storage
     localStorage.setItem("todos", JSON.stringify(todos));
-  }, [todos]);
+    localStorage.setItem("idForTodo", JSON.stringify(idForTodo));
+  }, [todos, idForTodo]);
 
   return (
     <div className="todo-app-container">
