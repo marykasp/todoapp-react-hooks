@@ -3,9 +3,9 @@ import TodoItemsRemaining from "./TodoItemsRemaining";
 import TodoClearCompleted from "./TodoClearCompleted";
 import TodoCompleteAll from "./TodoCompleteAll";
 import TodoFilters from "./TodoFilters";
+import useToggle from "../hooks/useToggle";
 
 function TodoList({
-  todos,
   completeTodo,
   markAsEditing,
   updateTodo,
@@ -18,6 +18,8 @@ function TodoList({
 }) {
   // set state, filter
   const [filter, setFilter] = useState("all");
+  const [isFeatureOneVisible, setFeatureOneVisible] = useToggle();
+  const [isFeatureTwoVisible, setFeatureTwoVisible] = useToggle();
   // iterate over the filtered todos, depending on the filter state and create a list item for each todo. todosFiltered function returns a todo list based on isComplete property of todo */
   const todoItems = todosFiltered(filter).map((todo) => {
     return (
@@ -67,21 +69,35 @@ function TodoList({
 
   return (
     <>
+      {/* insert todo items in the todolist */}
       <ul className="todo-list">{todoItems}</ul>
 
-      <div className="check-all-container">
-        <TodoCompleteAll completeAllTodos={completeAllTodos} />
-
-        <TodoItemsRemaining remaining={remaining} />
+      <div className="toggle-container">
+        <button className="button" onClick={setFeatureOneVisible}>
+          Feature 1
+        </button>
+        <button className="button" onClick={setFeatureTwoVisible}>
+          Feature 2
+        </button>
       </div>
 
-      <div className="other-buttons-container">
-        <TodoFilters filter={filter} setFilter={setFilter} />
+      {isFeatureOneVisible && (
+        <div className="check-all-container">
+          <TodoCompleteAll completeAllTodos={completeAllTodos} />
 
-        <div>
-          <TodoClearCompleted clearCompleted={clearCompleted} />
+          <TodoItemsRemaining remaining={remaining} />
         </div>
-      </div>
+      )}
+
+      {isFeatureTwoVisible && (
+        <div className="filter-buttons-container">
+          <TodoFilters filter={filter} setFilter={setFilter} />
+
+          <div>
+            <TodoClearCompleted clearCompleted={clearCompleted} />
+          </div>
+        </div>
+      )}
     </>
   );
 }

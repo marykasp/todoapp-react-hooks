@@ -210,13 +210,18 @@ button .bx {
   border: 1px solid lightgray;
   padding: 6px;
   border-radius: 5px;
+  margin-left: 5px;
   cursor: pointer;
 }
 
 .button.check-all {
   background-color: var(--primary-color);
   color: #fff;
-  border: 1px solid var(--text-color);
+  transition: all 0.3s ease;
+}
+
+.check-all:hover {
+  background-color: var(--secondary-color);
 }
 
 .button:hover {
@@ -241,7 +246,7 @@ button .bx {
   border-top: 1px solid lightgray;
 }
 
-.other-buttons-container {
+.filter-buttons-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -250,3 +255,8 @@ button .bx {
   padding-top: 16px;
   border-top: 1px solid lightgray;
 }
+
+.toggle-container {
+  margin: 20px 0;
+}
+

@@ -8,7 +8,9 @@ import "./App.css";
 function App() {
   // set state - array destructing
   const nameInputEl = useRef(null);
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(
+    JSON.parse(localStorage.getItem("todos")) || []
+  );
   const [idForTodo, setIdForTodo] = useState(1);
 
   // Event Handler Functions
@@ -110,6 +112,7 @@ function App() {
     setTodos(updatedTodos);
   }
 
+  // returns a new array of todos that is then mapped over in TodoList Component
   function todosFiltered(filter) {
     if (filter === "active") {
       // returns a new array of todos not yet done
@@ -122,15 +125,21 @@ function App() {
     return todos;
   }
 
-  // listens for component mounting, or state change and will execute the callback function
+  // listens for component mounting, or state change if dependencies are passed in the array and will execute the callback function
   useEffect(() => {
     // will focus the input when the component mounts
     nameInputEl.current.focus();
-
+    // when component unmounts
     return function cleanup() {
       // console.log("cleaning up");
     };
   }, []);
+
+  // when component mounts or todos updates the todos will be set in local storage
+  useEffect(() => {
+    // setItems in local storage
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
   return (
     <div className="todo-app-container">
@@ -142,7 +151,6 @@ function App() {
         {/* show the todolist or notodos if there are no todos in the todos array */}
         {todos.length > 0 ? (
           <TodoList
-            todos={todos}
             completeTodo={completeTodo}
             markAsEditing={markAsEditing}
             updateTodo={updateTodo}
