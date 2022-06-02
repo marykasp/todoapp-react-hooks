@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import { TodosContext } from "../context/TodosContext";
 
 // use setfilter in order to display the correct todos depending on which ones are completed or not, use filter to show which button needs the active className
-function TodoFilters({ filter, setFilter }) {
+function TodoFilters() {
+  const { filter, setFilter } = useContext(TodosContext);
   return (
     <div>
       <button

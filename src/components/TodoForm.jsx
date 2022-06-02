@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { TodosContext } from "../context/TodosContext";
 
-function TodoForm({ addTodo }) {
+function TodoForm() {
+  const { todos, setTodos, idForTodo, setIdForTodo } = useContext(TodosContext);
   const [todoInput, setTodoInput] = useState("");
 
   function handleInput(event) {
@@ -8,20 +10,29 @@ function TodoForm({ addTodo }) {
     setTodoInput(event.target.value);
   }
 
-  function handleSubmit(e) {
+  function addTodo(e) {
     e.preventDefault();
     // check if input is empty
     if (todoInput.trim().length === 0) {
       return;
     }
 
-    // call prop function passed down to edit the todos in the App Component
-    addTodo(todoInput);
+    // update todos array using context
+    setTodos([
+      ...todos,
+      {
+        id: idForTodo,
+        title: todoInput,
+        isComplete: false,
+      },
+    ]);
+    // need to use a callback if updating a previous state, from context
+    setIdForTodo((prevIdForTodo) => prevIdForTodo + 1);
     setTodoInput("");
   }
 
   return (
-    <form action="#" onSubmit={handleSubmit}>
+    <form action="#" onSubmit={addTodo}>
       <input
         type="text"
         className="todo-input"

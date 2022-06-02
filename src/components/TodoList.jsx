@@ -1,27 +1,83 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import TodoItemsRemaining from "./TodoItemsRemaining";
 import TodoClearCompleted from "./TodoClearCompleted";
 import TodoCompleteAll from "./TodoCompleteAll";
 import TodoFilters from "./TodoFilters";
 import useToggle from "../hooks/useToggle";
+import { TodosContext } from "../context/TodosContext";
 
-function TodoList({
-  completeTodo,
-  markAsEditing,
-  updateTodo,
-  cancelEdit,
-  deleteTodo,
-  remaining,
-  clearCompleted,
-  completeAllTodos,
-  todosFiltered,
-}) {
-  // set state, filter
-  const [filter, setFilter] = useState("all");
+function TodoList() {
   const [isFeatureOneVisible, setFeatureOneVisible] = useToggle();
   const [isFeatureTwoVisible, setFeatureTwoVisible] = useToggle(false);
+  // instead of passing down props getting the props from the Global Context
+  const { todosFiltered, todos, setTodos } = useContext(TodosContext);
+
+  function deleteTodo(id) {
+    // get the id of the todo
+    console.log(`deleting todo id ${id}`);
+    // set the todos by removing the todos clicked on
+    setTodos(todos.filter((todo) => todo.id !== id));
+  }
+
+  function completeTodo(id) {
+    // iterate over the todos and change the isComplete property for todo clicked on
+    const updatedTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        todo.isComplete = !todo.isComplete;
+      }
+
+      return todo;
+    });
+
+    setTodos(updatedTodos);
+  }
+
+  function markAsEditing(id) {
+    const updatedTodos = todos.map((todo) => {
+      // change the isEditing property of todo clicked on
+      if (todo.id === id) {
+        todo.isEditing = true;
+      }
+
+      return todo;
+    });
+
+    setTodos(updatedTodos);
+  }
+
+  function updateTodo(e, id) {
+    console.log(e.target.value);
+    // update the todo from the value in the input field - iterate over the todos and change the title and isEditing property of the todo being edited
+    const updatedTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        // check if input value is empty string
+        if (e.target.value.trim().length === 0) {
+          todo.isEditing = false;
+          return todo;
+        }
+        todo.title = e.target.value;
+        // change isEditing to false to display the span again
+        todo.isEditing = false;
+      }
+      return todo;
+    });
+
+    setTodos(updatedTodos);
+  }
+
+  function cancelEdit(id) {
+    const updatedTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        todo.isEditing = false;
+      }
+      return todo;
+    });
+
+    setTodos(updatedTodos);
+  }
+
   // iterate over the filtered todos, depending on the filter state and create a list item for each todo. todosFiltered function returns a todo list based on isComplete property of todo */
-  const todoItems = todosFiltered(filter).map((todo) => {
+  const todoItems = todosFiltered().map((todo) => {
     return (
       <li className="todo-item-container" key={todo.id}>
         <div className="todo-item">
@@ -29,6 +85,7 @@ function TodoList({
             type="checkbox"
             onChange={() => completeTodo(todo.id)}
             checked={todo.isComplete}
+            className="todo-checkbox"
           />
           {/* conditional rendering of elements using ternary operator */}
           {!todo.isEditing ? (
@@ -81,20 +138,21 @@ function TodoList({
         </button>
       </div>
 
+      {/* toggle these features based on a state value */}
       {isFeatureOneVisible && (
         <div className="check-all-container">
-          <TodoCompleteAll completeAllTodos={completeAllTodos} />
+          <TodoCompleteAll />
 
-          <TodoItemsRemaining remaining={remaining} />
+          <TodoItemsRemaining />
         </div>
       )}
 
       {isFeatureTwoVisible && (
         <div className="filter-buttons-container">
-          <TodoFilters filter={filter} setFilter={setFilter} />
+          <TodoFilters />
 
           <div>
-            <TodoClearCompleted clearCompleted={clearCompleted} />
+            <TodoClearCompleted />
           </div>
         </div>
       )}
