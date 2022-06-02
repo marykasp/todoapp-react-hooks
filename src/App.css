@@ -137,6 +137,7 @@ h4 {
   margin-top: 32px;
 }
 
+/* wraps, checkbox, span, buttons */
 .todo-item-container {
   display: flex;
   justify-content: space-between;
@@ -144,6 +145,7 @@ h4 {
   margin-top: 24px;
 }
 
+/* input checkboc and span */
 .todo-item {
   display: flex;
   align-items: center;
@@ -152,6 +154,41 @@ h4 {
   margin-right: 24px;
 }
 
+/* =======================
+  TODO ITEM CHECKBOX
+========================*/
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  margin: 0;
+  font: inherit;
+  color: var(--primary-color);
+  width: 1.1rem;
+  height: 1.1rem;
+  border: 3px solid var(--primary-color);
+  border-radius: 0.15rem;
+  display: grid;
+  place-content: center;
+  transform: translateY(-0.075em);
+}
+
+/* styling checked vs unchecked, hide it with scale(0) */
+input[type="checkbox"]::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(--secondary-color);
+}
+
+/* style when input is checked */
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+/* span - todo item */
 .todo-item-label {
   margin-left: 16px;
 }
