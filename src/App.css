@@ -1,4 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+
+:root {
+  --primary-color: #895cf3;
+  --secondary-color: #f35ce1;
+  --text-color: #170444;
+  --light-text-color: #374151;
+}
+
+/* =======================
+  BASE STYLES
+========================*/
 *, *::before, *::after {
   margin: 0;
   padding: 0;
@@ -17,27 +28,29 @@ input {
 
 input:focus {
   outline: none !important;
-  border:1px solid #895cf3;
-  /* box-shadow: 0 0 10px #719ECE; */
+  border:1px solid var(--primary-color);
 }
 
 h2 {
   font-size: 35px;
   font-weight: bold;
-  color: #895cf3;
+  color: var(--primary-color);
 }
 
 h4 {
   font-size: 20px;
-  color: #170444;
+  color: var(--text-color);
   font-weight: 500;
   margin-bottom: 5px;
 }
 
+/* =======================
+ TODO CONTAINER
+========================*/
 .todo-app-container {
   min-height: 100vh;
   padding: 10px;
-  background: #895cf3;
+  background: var(--primary-color);
 }
 
 .no-todos-container {
@@ -58,30 +71,31 @@ h4 {
   border-radius: 0.25rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   max-width: 32rem;
-  color: #374151;
+  color: var(--light-text-color);
 }
 
+/* =======================
+  INPUT NAME
+========================*/
 .name-container {
   margin-bottom: 20px;
   position: relative;
-  /* display: flex;
-  align-items: center;
-  justify-content: space-between; */
 }
 
 .todo-input-name {
   flex: 0 0 50%;
-  padding: 10px 15px;
-  background: lightgray;
-  border: none;
-  border-radius: 3px;
-  color: #895cf3;
+  padding: 10px 15px 5px;
+  background: transparent;
+  border-bottom: 2px solid var(--primary-color);
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  color: var(--primary-color);
   font-size: 14px;
 }
 
-
 .name-container .bx {
-  background-color: #895cf3;
+  background-color: var(--primary-color);
   padding: 10px;
   border-radius: 50%;
   font-size: 40px;
@@ -97,23 +111,25 @@ h4 {
 }
 
 .name-label span {
-  color: #895cf3;
+  color: var(--primary-color);
   font-weight: 600;
   letter-spacing: 0.5px;
 }
 
+/* =======================
+  TODO INPUT & LIST
+========================*/
 .todo-input {
   margin-top: 10px;
   padding: 10px 15px;
   width: 100%;
   border: 1px solid #ccd0d3;
   border-radius: 5px;
-  color: #170444;
-  outline-color: #895cf3;
+  color: var(--text-color);
+  outline-color: var(--primary-color);
   background: transparent;
   font-size: 16px;
 }
-
 
 .todo-list {
   margin-top: 32px;
@@ -147,14 +163,14 @@ h4 {
   border: none;
   /* border: 1px solid #bbc0c5; */
   border-radius: 5px;
-  color: #170444;
+  color: var(--text-color);
   background-color: rgba(137, 92, 243, 0.3);
-  outline: 2px solid #895cf3;
+  outline: 2px solid var(--primary-color);
 }
 
 .line-through {
   text-decoration: line-through;
-  text-decoration-color:#170444;
+  text-decoration-color:var(--text-color);
 }
 
 .x-button, .edit-button {
@@ -177,16 +193,18 @@ button .bx {
 }
 
 .x-button .bx {
-  color: #895cf3;
+  color: var(--primary-color);
 }
 
 .x-button:hover .bx{
-  color: #170444;
+  color: var(--text-color);
 }
 
-
+/* =======================
+  BUTTON STYLES
+========================*/
 .button {
-  color: #895cf3;
+  color: var(--primary-color);
   font-size: 14px;
   background: white;
   border: 1px solid lightgray;
@@ -196,9 +214,9 @@ button .bx {
 }
 
 .button.check-all {
-  background-color: #895cf3;
+  background-color: var(--primary-color);
   color: #fff;
-  border: 1px solid #170444;
+  border: 1px solid var(--text-color);
 }
 
 .button:hover {

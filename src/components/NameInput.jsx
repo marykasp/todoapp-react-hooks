@@ -11,7 +11,7 @@ function NameInput({ nameInputEl }) {
           type="text"
           ref={nameInputEl}
           className="todo-input-name"
-          placeholder="What is your name?"
+          placeholder="Enter your name.."
           value={name}
           onChange={(event) => setName(event.target.value)}
         />
