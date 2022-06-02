@@ -19,7 +19,7 @@ function TodoList({
   // set state, filter
   const [filter, setFilter] = useState("all");
   const [isFeatureOneVisible, setFeatureOneVisible] = useToggle();
-  const [isFeatureTwoVisible, setFeatureTwoVisible] = useToggle();
+  const [isFeatureTwoVisible, setFeatureTwoVisible] = useToggle(false);
   // iterate over the filtered todos, depending on the filter state and create a list item for each todo. todosFiltered function returns a todo list based on isComplete property of todo */
   const todoItems = todosFiltered(filter).map((todo) => {
     return (
@@ -74,10 +74,10 @@ function TodoList({
 
       <div className="toggle-container">
         <button className="button" onClick={setFeatureOneVisible}>
-          Feature 1
+          Remaining Todos
         </button>
         <button className="button" onClick={setFeatureTwoVisible}>
-          Feature 2
+          Filter Todos
         </button>
       </div>
 

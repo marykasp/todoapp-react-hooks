@@ -7,8 +7,6 @@ function NameInput({ nameInputEl }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    // access the input DOM element
-    console.log(nameInputEl.current.value);
     // change the name state value to be the value from the input
     setName(nameInputEl.current.value);
     // remove the value from the input to be set to an empty string
