@@ -5,10 +5,12 @@ import TodoCompleteAll from "./TodoCompleteAll";
 import TodoFilters from "./TodoFilters";
 import useToggle from "../hooks/useToggle";
 import { TodosContext } from "../context/TodosContext";
+import { CSSTransition } from "react-transition-group";
+import { TransitionGroup } from "react-transition-group";
 
 function TodoList() {
   const [isFeatureOneVisible, setFeatureOneVisible] = useToggle();
-  const [isFeatureTwoVisible, setFeatureTwoVisible] = useToggle(false);
+  const [isFeatureTwoVisible, setFeatureTwoVisible] = useToggle();
   // instead of passing down props getting the props from the Global Context
   const { todosFiltered, todos, setTodos } = useContext(TodosContext);
 
@@ -76,58 +78,65 @@ function TodoList() {
     setTodos(updatedTodos);
   }
 
-  // iterate over the filtered todos, depending on the filter state and create a list item for each todo. todosFiltered function returns a todo list based on isComplete property of todo */
+  // map over the filtered todos, depending on the filter state and create a list item for each todo. todosFiltered function returns a todo list based on isComplete property of todo */
   const todoItems = todosFiltered().map((todo) => {
     return (
-      <li className="todo-item-container" key={todo.id}>
-        <div className="todo-item">
-          <input
-            type="checkbox"
-            onChange={() => completeTodo(todo.id)}
-            checked={todo.isComplete}
-            className="todo-checkbox"
-          />
-          {/* conditional rendering of elements using ternary operator */}
-          {!todo.isEditing ? (
-            <span
-              onDoubleClick={() => markAsEditing(todo.id)}
-              className={`todo-item-label ${
-                todo.isComplete ? "line-through" : ""
-              }`}
-            >
-              {todo.title}
-            </span>
-          ) : (
+      <CSSTransition key={todo.id} timeout={300} classNames="slide-horizontal">
+        <li className="todo-item-container">
+          <div className="todo-item">
             <input
-              type="text"
-              className="todo-item-input"
-              defaultValue={todo.title}
-              autoFocus
-              onBlur={(e) => updateTodo(e, todo.id)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  updateTodo(e, todo.id);
-                } else if (e.key === "Escape") {
-                  cancelEdit(todo.id);
-                }
-              }}
+              type="checkbox"
+              onChange={() => completeTodo(todo.id)}
+              checked={todo.isComplete}
+              className="todo-checkbox"
             />
-          )}
-        </div>
-        <button className="edit-button" onClick={() => markAsEditing(todo.id)}>
-          <i className="bx bxs-edit"></i>
-        </button>
-        <button className="x-button" onClick={() => deleteTodo(todo.id)}>
-          <i className="bx bxs-trash"></i>
-        </button>
-      </li>
+            {/* conditional rendering of elements using ternary operator */}
+            {!todo.isEditing ? (
+              <span
+                onDoubleClick={() => markAsEditing(todo.id)}
+                className={`todo-item-label ${
+                  todo.isComplete ? "line-through" : ""
+                }`}
+              >
+                {todo.title}
+              </span>
+            ) : (
+              <input
+                type="text"
+                className="todo-item-input"
+                defaultValue={todo.title}
+                autoFocus
+                onBlur={(e) => updateTodo(e, todo.id)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    updateTodo(e, todo.id);
+                  } else if (e.key === "Escape") {
+                    cancelEdit(todo.id);
+                  }
+                }}
+              />
+            )}
+          </div>
+          <button
+            className="edit-button"
+            onClick={() => markAsEditing(todo.id)}
+          >
+            <i className="bx bxs-edit"></i>
+          </button>
+          <button className="x-button" onClick={() => deleteTodo(todo.id)}>
+            <i className="bx bxs-trash"></i>
+          </button>
+        </li>
+      </CSSTransition>
     );
   });
 
   return (
     <>
       {/* insert todo items in the todolist */}
-      <ul className="todo-list">{todoItems}</ul>
+      <TransitionGroup component="ul" className="todo-list">
+        {todoItems}
+      </TransitionGroup>
 
       <div className="toggle-container">
         <button className="button" onClick={setFeatureOneVisible}>
@@ -139,15 +148,25 @@ function TodoList() {
       </div>
 
       {/* toggle these features based on a state value */}
-      {isFeatureOneVisible && (
+      <CSSTransition
+        in={isFeatureOneVisible}
+        timeout={300}
+        classNames="slide-vertical"
+        unmountOnExit
+      >
         <div className="check-all-container">
           <TodoCompleteAll />
 
           <TodoItemsRemaining />
         </div>
-      )}
+      </CSSTransition>
 
-      {isFeatureTwoVisible && (
+      <CSSTransition
+        in={isFeatureTwoVisible}
+        timeout={300}
+        classNames="slide-vertical"
+        unmountOnExit
+      >
         <div className="filter-buttons-container">
           <TodoFilters />
 
@@ -155,7 +174,7 @@ function TodoList() {
             <TodoClearCompleted />
           </div>
         </div>
-      )}
+      </CSSTransition>
     </>
   );
 }

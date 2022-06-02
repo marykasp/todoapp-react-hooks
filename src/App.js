@@ -1,10 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import NoTodos from "./components/NoTodos";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
 import NameInput from "./components/NameInput";
 import "./App.css";
 import { TodosContext } from "./context/TodosContext";
+import { CSSTransition } from "react-transition-group";
+import { SwitchTransition } from "react-transition-group";
 
 function App() {
   // set state - array destructing
@@ -68,7 +70,33 @@ function App() {
           <TodoForm />
 
           {/* show the todolist or notodos if there are no todos in the todos array */}
-          {todos.length > 0 ? <TodoList /> : <NoTodos />}
+          <SwitchTransition mode="out-in">
+            <CSSTransition
+              key={todos.length > 0}
+              timeout={300}
+              classNames="slide-vertical"
+              unmountOnExit
+            >
+              {todos.length > 0 ? <TodoList /> : <NoTodos />}
+            </CSSTransition>
+          </SwitchTransition>
+          {/* <CSSTransition
+            in={todos.length > 0}
+            timeout={300}
+            clasNames="slide-vertical"
+            unmountOnExit
+          >
+            <TodoList />
+          </CSSTransition>
+
+          <CSSTransition
+            in={todos.length === 0}
+            timeout={300}
+            clasNames="slide-vertical"
+            unmountOnExit
+          >
+            <NoTodos />
+          </CSSTransition> */}
         </div>
       </div>
     </TodosContext.Provider>

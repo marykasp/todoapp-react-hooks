@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { CSSTransition } from "react-transition-group";
 
 function NameInput({ nameInputEl }) {
   const [name, setName] = useState(
@@ -21,11 +22,16 @@ function NameInput({ nameInputEl }) {
   return (
     <div className="name-container">
       <form action="#" onSubmit={handleSubmit}>
-        {name && (
+        <CSSTransition
+          in={name.length > 0}
+          timeout={300}
+          classNames="slide-vertical"
+          unmountOnExit
+        >
           <h3 className="name-label">
             Hello, <span>{name}</span>
           </h3>
-        )}
+        </CSSTransition>
         <input
           type="text"
           ref={nameInputEl}
